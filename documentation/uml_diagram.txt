@@ -1,0 +1,120 @@
+@startuml
+
+package "netpbm File Generator" {
+  class Main {
+  }
+
+  class FileIOInterface {
+    {static} + WriteGraphComponents(Canvas)
+  }
+
+  class Graph {
+     {field} - Components : GraphComponent[]
+  }
+
+  class GraphComponent {
+     {field} # Component : Canvas
+    {method} + void Draw()
+  }
+
+  package "Graph Encoding" {
+    class Canvas {
+       {field} # Height : int
+       {field} # Width : int
+       {field} # PixInst : Pixel[][]
+      {method} + DrawQuadralateral(int, int, int, int)
+      {method} + DrawCircle(int, int, int)
+    }
+
+    class Pixel {
+       {field} - RedDecimal : int
+       {field} - GreenDecimal : int
+       {field} - BlueDecimal : int
+       {field} - LayerNo : int
+      {method} + int GetHexColor()
+      {method} + int GetDecimalRed()
+      {method} + int GetDecimalGreen()
+      {method} + int GetDecimalBlue()
+      {method} + int SetHexColor(int)
+      {method} + int SetDecimalRed(int)
+      {method} + int SetDecimalGreen(int)
+      {method} + int SetDecimalBlue(int)
+    }
+  }
+
+  note top of Pixel : GetHexColor should\nuse bitshifting.
+
+  package GraphPresets {
+    class GraphScale {
+       {field} - TicMarks : AxisTicMarks[]
+       {field} - Axes : CoordinateAxis[]
+       {field} - Border : GraphBorder
+      {method} + void WriteToCanvas()
+    }
+
+    class AxisTicMarks {
+       {field} - NumberMarks : int
+       {field} - MarkThickness : int
+       {field} - TicAxis : Axis
+      {method} + AxisTicMarks(int, int, int)
+      {method} + int[] GetTicAttributes(int)
+    }
+
+    class CoordinateAxis {
+       {field} - Width : int
+       {field} - ThisAxis : Axis
+      {method} + CoordinateAxis(int, Axis)
+      {method} + int GetWidth()
+      {method} + Axis GetThisAxis()
+      {method} + void SetWidth(int)
+      {method} + void SetThisAxis(Axis)
+    }
+
+    class GraphBorder {
+       {field} - Width : int
+      {method} + int GetWidth()
+      {method} + void SetWidth(int)
+    }
+
+    enum Axis {
+      X
+      Y
+    }
+  }
+
+  package GraphVariants {
+
+    class Function {
+    }
+
+    class Polynomial {
+    }
+
+    class Logorithm {
+    }
+  }
+}
+
+Main --> FileIOInterface
+Main --> Graph
+
+GraphComponent "1" o--> "1" Canvas
+
+Canvas "1" o--> "*" Pixel
+
+AxisTicMarks       o-->       Axis
+CoordinateAxis     o-->       Axis
+AxisTicMarks   "2" <-up-o "1" GraphScale
+CoordinateAxis "2" <-up-o "1" GraphScale
+GraphBorder        <-up-o     GraphScale
+
+GraphScale -up-|> GraphComponent
+Function   -up-|> GraphComponent
+
+Polynomial -up-|> Function
+Logorithm  -up-|> Function
+
+Graph "1" o--> "*" GraphComponent
+
+
+@enduml
