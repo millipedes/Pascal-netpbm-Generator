@@ -1,0 +1,5 @@
+(* unit CanvasUnit; *)
+(* interface *)
+(*  *)
+(* type *)
+(*   Canvas = object *)

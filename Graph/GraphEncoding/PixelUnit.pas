@@ -1,8 +1,10 @@
 unit PixelUnit;
+{$MODE OBJFPC}
+{$M+}
 interface
 
 type
-  Pixel = object
+  Pixel = class
   private
       RedDecimal : integer;
     GreenDecimal : integer;
@@ -11,7 +13,7 @@ type
   public
     constructor Create; overload;
     constructor Create(r, g, b, l: integer); overload;
-    destructor Free;
+    destructor Destroy; override;
 
     procedure SetRedDecimal(r: integer);
     procedure SetGreenDecimal(g: integer);
@@ -29,10 +31,10 @@ implementation
 
 constructor Pixel.Create;
 begin
-  RedDecimal := 0;
-  GreenDecimal := 23;
-  BlueDecimal :=  42;
-  LayerNo := 0;
+  self.RedDecimal := 0;
+  self.GreenDecimal := 23;
+  self.BlueDecimal :=  42;
+  self.LayerNo := 0;
 end;
 
 constructor Pixel.Create(r, g, b, l: integer);
@@ -43,7 +45,7 @@ begin
   LayerNo := l;
 end;
 
-destructor Pixel.Free;
+destructor Pixel.Destroy;
 begin
 end;
 
