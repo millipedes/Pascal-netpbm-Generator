@@ -25,7 +25,7 @@ type
     function GetLayerNo() : integer;
 
     procedure PrintDebug;
-  end;
+end;
 
 implementation
 

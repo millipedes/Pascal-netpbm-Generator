@@ -26,6 +26,13 @@ package "netpbm File Generator" {
          {field} # Height : int
          {field} # Width : int
          {field} # PixInst : Pixel[][]
+        {method} + int GetHeight()
+        {method} + int GetWidth()
+        {method} + Pixel[][] GetPixInst()
+        {method} + void SetHeight(int)
+        {method} + void SetWidth(int)
+        {method} + void SetPixelInst(Pixel[][])
+        {method} + void SetAPixelInst(int, int, Pixel)
         {method} + DrawQuadralateral(int, int, int, int)
         {method} + DrawCircle(int, int, int)
       }
@@ -38,16 +45,14 @@ package "netpbm File Generator" {
         {method} + Create
         {method} + Create(int, int, int)
         {method} + Create(int)
-        {method} + int GetDecimalRed()
-        {method} + int GetDecimalGreen()
-        {method} + int GetDecimalBlue()
+        {method} + void GetDecimalRed()
+        {method} + void GetDecimalGreen()
+        {method} + void GetDecimalBlue()
         {method} + int SetDecimalRed(int)
         {method} + int SetDecimalGreen(int)
         {method} + int SetDecimalBlue(int)
       }
     }
-
-    note top of Pixel : GetHexColor should\nuse bitshifting.
 
     package GraphPresets {
       class GraphScale {
@@ -86,19 +91,19 @@ package "netpbm File Generator" {
         Y
       }
     }
+    package GraphVariants {
+
+      class Function {
+      }
+
+      class Polynomial {
+      }
+
+      class Logorithm {
+      }
+    }
   }
 
-  package GraphVariants {
-
-    class Function {
-    }
-
-    class Polynomial {
-    }
-
-    class Logorithm {
-    }
-  }
 }
 
 Main --> FileIOInterface

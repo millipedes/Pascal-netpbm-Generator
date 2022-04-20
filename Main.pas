@@ -1,12 +1,7 @@
 program Main;
 uses
-  PixelUnit in 'Graph/GraphEncoding/PixelUnit.pas';
-
-var
-  p1: Pixel;
+  CanvasUnit in 'Graph/GraphEncoding/CanvasUnit.pas';
 
 begin
-  p1 := Pixel.Create;
-  p1.PrintDebug;
-  P1.Destroy;
+  writeln('Hello World');
 end.
